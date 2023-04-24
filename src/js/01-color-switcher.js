@@ -8,6 +8,7 @@ const refs = {
 refs.startBtn.addEventListener('click', clickStartBtn);
 refs.stopBtn.addEventListener('click', clickStopBtn);
 
+let timerId = null;
 function clickStartBtn() {
     timerId = setInterval(changeBodyColor, 1000)
     refs.startBtn.disabled = true;
