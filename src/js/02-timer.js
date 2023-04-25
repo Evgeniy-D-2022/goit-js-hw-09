@@ -12,13 +12,13 @@ const refs = {
     seconds: document.querySelector('[data-seconds]'),
 };
 
-let intervalID = null;
+let intervalId = null;
 
 refs.startBtn.addEventListener('click', startTimer);
+refs.startBtn.disabled = true;
 
 function startTimer() {
-    intervalID = setInterval(endTimer, 1000);
-    refs.startBtn.disabled = true;
+    intervalId = setInterval(endTimer, 1000);
 };
 
 const options = {
@@ -32,7 +32,7 @@ const options = {
             refs.startBtn.disabled = true;
         } else {
             refs.startBtn.disabled = false;
-        };
+        }
     },
   };
 
@@ -41,8 +41,9 @@ const options = {
     const selectedDate = new Date(refs.dateTimePicker.value);
     const diff = selectedDate - currentDate;
     if (diff < 1000) {
-        clearInterval(intervalID);
-        Notiflix.Notify.success('Success', 'Countdown is over');
+        clearInterval(intervalId);
+        Notiflix.Notify.success('Success, Countdown is over');
+        refs.startBtn.disabled = true;
     }
     if (selectedDate !== null) {
         refs.days.textContent = addLeadingZero(convertMs(diff).days);
@@ -50,8 +51,6 @@ const options = {
         refs.days.textContent = addLeadingZero(convertMs(diff).days);
         refs.minutes.textContent = addLeadingZero(convertMs(diff).minutes);
         refs.seconds.textContent = addLeadingZero(convertMs(diff).seconds);
-        
-        // refs.startBtn.disabled = true;
     }
    return;
 };
